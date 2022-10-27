@@ -6,10 +6,10 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('settings')][last()]" position="inside">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
                     <div class="app_settings_block" data-string="General Settings" string="General Settings" data-key="general_settings">
                         <div id="extra_functions">
-                            <h2>Extra Functions</h2>
+                            <h2>Unique Partner</h2>
                             <div class="row mt16 o_settings_container">
                                 <div class="col-12 col-lg-6 o_setting_box">
                                     <div class="o_setting_left_pane">
@@ -19,6 +19,54 @@
                                         <label for="extra_function"/>
                                         <div class="text-muted">
                                             Activate extra functions to unique partner module
+                                        </div>
+                                    </div>                                    
+                                    <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <field name="email_is_required"/>
+                                    </div>
+                                    <div class="o_setting_right_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <label for="email_is_required"/>
+                                        <div class="text-muted">
+                                            Email for invoicing is required
+                                        </div>
+                                    </div>  
+                                                            
+                                    <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <field name="regime_type_is_required"/>
+                                    </div>
+                                    <div class="o_setting_right_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <label for="regime_type_is_required"/>
+                                        <div class="text-muted">
+                                            Regime type is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <field name="municipality_is_required"/>
+                                    </div>
+                                    <div class="o_setting_right_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <label for="municipality_is_required"/>
+                                        <div class="text-muted">
+                                            Municipality is required
+                                        </div>
+                                    </div>
+                                    <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <field name="document_type_is_required"/>
+                                    </div>
+                                    <div class="o_setting_right_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <label for="document_type_is_required"/>
+                                        <div class="text-muted">
+                                            Document type is required
+                                        </div>
+                                    </div>
+                                    <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <field name="liability_is_required"/>
+                                    </div>
+                                    <div class="o_setting_right_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <label for="liability_is_required"/>
+                                        <div class="text-muted">
+                                            Liability type is required
                                         </div>
                                     </div>
                                 </div>

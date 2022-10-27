@@ -47,19 +47,25 @@ class ResPartner(models.Model):
     def write(self,values):
         res = super(ResPartner, self).write(values)
         is_extra_funcion = self.env.user.company_id.extra_function
+        email_is_required = self.env.user.company_id.email_is_required
+        regime_type_is_required = self.env.user.company_id.regime_type_is_required
+        municipality_is_required = self.env.user.company_id.municipality_is_required
+        document_type_is_required = self.env.user.company_id.document_type_is_required
+        liability_is_required = self.env.user.company_id.liability_is_required
+        
         for record in self:
             if is_extra_funcion:
                 if not record.vat:
                     raise ValidationError(_('Please add vat'))
-                elif (not record.l10n_co_document_type):
+                elif (not record.l10n_co_document_type and document_type_is_required):
                     raise ValidationError(_('Please Add document type'))
-                elif (not record.type_regime_id ):
+                elif (not record.type_regime_id and regime_type_is_required):
                     raise ValidationError(_('Please Add regime type -----> (Electronic Invoicing Field)'))
-                elif (not record.type_liability_id ):
+                elif (not record.type_liability_id and liability_is_required):
                     raise ValidationError(_('Please Add liability type -----> (Electronic Invoicing Field)'))
-                elif (not record.municipality_id ):
+                elif (not record.municipality_id and municipality_is_required):
                     raise ValidationError(_('Please Add municipality -----> (Electronic Invoicing Field)'))
-                elif (not record.email_edi):
+                elif (not record.email_edi and email_is_required):
                     raise ValidationError(_('Please Add email for invoicing -----> (Electronic Invoicing Field)'))
         return res
 
