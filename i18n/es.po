@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* vmc_unique_partner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-21 17:42+0000\n"
+"PO-Revision-Date: 2021-12-21 17:42+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vmc_unique_partner
+#: model:ir.model,name:vmc_unique_partner.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: vmc_unique_partner
+#: code:addons/vmc_unique_partner/models/res_partner.py:24
+#, python-format
+msgid "Please add vat"
+msgstr "Por favor agregue el NIT"
+
+#. module: vmc_unique_partner
+#: model:ir.model.fields,field_description:vmc_unique_partner.field_res_partner__vat
+#: model:ir.model.fields,field_description:vmc_unique_partner.field_res_users__vat
+msgid "Tax ID"
+msgstr "NIT"
+
+#. module: vmc_unique_partner
+#: model:ir.model.fields,help:vmc_unique_partner.field_res_partner__vat
+#: model:ir.model.fields,help:vmc_unique_partner.field_res_users__vat
+msgid "The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements."
+msgstr "El número de identificación de impuesto(NIT). Complételo si el contacto está sujeto a los impuestos del gobierno. Utilizado en algunas declaraciones legales."
+
+#. module: vmc_unique_partner
+#: code:addons/vmc_unique_partner/models/res_partner.py:28
+#, python-format
+msgid "The vat  is already exist in the following records:\n"
+"El NIT/Cedula ya existe para la Empresa/Persona"
+msgstr ""
+
