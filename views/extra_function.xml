@@ -40,6 +40,15 @@
                                             Regime type is required
                                         </div>
                                     </div>
+                                    <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <field name="vat_is_required"/>
+                                    </div>
+                                    <div class="o_setting_right_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">
+                                        <label for="vat_is_required"/>
+                                        <div class="text-muted">
+                                            VAT is required
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-lg-6 o_setting_box">
                                     <div class="o_setting_left_pane" attrs="{'invisible': [('extra_function', '!=', True)]}">

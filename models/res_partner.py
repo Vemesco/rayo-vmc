@@ -9,11 +9,15 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit="res.partner"
 
+    l10n_latam_identification_type_id = fields.Many2one()
     vat = fields.Char(copy=False,string="VAT")
     email_edi = fields.Char(copy=False)
+    vat_is_required = fields.Boolean(string="vat_is_required")
     def get_partner_list(self,partner_objs):
         partner_list = ''
         for partner in partner_objs:
+            if partner.name == False:
+                partner.name = ''
             partner_list = partner_list + ' || ' + partner.name
         return partner_list
 
@@ -22,8 +26,6 @@ class ResPartner(models.Model):
     def _check_vat_unique(self):
         for record in self:
             is_extra_funcion = self.env.user.company_id.extra_function
-            if not record.vat:
-                raise ValidationError(_('Please add vat'))
             if record.vat:
                 #ADD validations to VAT
                 vat_only_nums = (record.vat).replace('-','')
@@ -33,9 +35,10 @@ class ResPartner(models.Model):
                     else:
                         raise ValidationError(_('The "'+ record.vat +'" VAT does not comply with the correct format.\n' + 'Correct Nit format: xxxxxxxxx-x  where x represents an integer digit.\n' +'If your document type is other, the correct format are only numbers.'))
                 
-            partner_objs = record.env['res.partner'].search([('vat','=',record.vat),('id','!=',record.id)])
-            if record.get_partner_list(partner_objs):
-                raise ValidationError(_('The vat ' +record.vat+' is already exist in the following records:' + '\n' + record.get_partner_list(partner_objs)))
+            if record.vat and is_extra_funcion:
+                partner_objs = record.env['res.partner'].search([('vat','=',record.vat),('id','!=',record.id)])
+                if record.get_partner_list(partner_objs) and record.vat:
+                    raise ValidationError(_('The vat ' +record.vat+' is already exist in the following records:' + '\n' + record.get_partner_list(partner_objs)))
 
             if record.email_edi and is_extra_funcion:
                 partner_objs = record.env['res.partner'].search([('email_edi','=',record.email_edi),('id','!=',record.id)])
@@ -52,10 +55,11 @@ class ResPartner(models.Model):
         municipality_is_required = self.env.user.company_id.municipality_is_required
         document_type_is_required = self.env.user.company_id.document_type_is_required
         liability_is_required = self.env.user.company_id.liability_is_required
-        
+        vat_is_required = self.env.user.company_id.vat_is_required
+
         for record in self:
             if is_extra_funcion:
-                if not record.vat:
+                if not record.vat and vat_is_required:
                     raise ValidationError(_('Please add vat'))
                 elif (not record.l10n_co_document_type and document_type_is_required):
                     raise ValidationError(_('Please Add document type'))

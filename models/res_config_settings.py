@@ -15,6 +15,7 @@ class ResCompany(models.Model):
     municipality_is_required= fields.Boolean(string='Municipality', default = False)
     document_type_is_required= fields.Boolean(string='Document type', default = False)
     liability_is_required= fields.Boolean(string='Liability type', default = False)
+    vat_is_required = fields.Boolean(string='VAT', default = False)
 
 class ResConfigSettings(models.TransientModel):	
     _inherit = "res.config.settings"	
@@ -25,5 +26,5 @@ class ResConfigSettings(models.TransientModel):
     municipality_is_required= fields.Boolean(related="company_id.municipality_is_required", string='Municipality', default = False, readonly = False)
     document_type_is_required= fields.Boolean(related="company_id.document_type_is_required", string='Document Type', default = False, readonly = False)
     liability_is_required= fields.Boolean(related="company_id.liability_is_required", string='Liability', default = False, readonly = False)
-
+    vat_is_required = fields.Boolean(related="company_id.vat_is_required", string='VAT', default = False, readonly = False)
     
