@@ -68,6 +68,16 @@ class ResPartner(models.Model):
                             if record.get_partner_list(partner_objs):
                                 raise ValidationError(_('Please Add '+required_fields[rec][2]))
     
+    #If extra_functions is active, the user don't have permissions to duplicate contacts
+    @api.multi
+    def copy(self):
+        res = super(ResPartner, self).copy()
+        is_extra_funcion = self.env.user.company_id.extra_function
+        vat_is_required = self.env.user.company_id.vat_is_required
+        if is_extra_funcion:
+            raise ValidationError(_('You do not have permissions to duplicate a contact'))
+        return res
+
     #Define obligatories fields to Electronic Invoicing
     @api.multi
     def write(self,values):
