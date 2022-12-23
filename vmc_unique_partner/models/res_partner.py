@@ -35,9 +35,13 @@ class ResPartner(models.Model):
         for record in self:
             if record.vat:
                 #ADD validations to VAT
+                letters = list(map(chr, range(65, 91)))
                 vat_only_nums = (record.vat).replace('-','')
                 if is_extra_funcion:
                     if (((record.vat).count('-') < 2) and (vat_only_nums.isnumeric()) and (record.vat)[len((record.vat))-1].isnumeric() and len((record.vat))==11 and (record.vat)[9]=='-' and record.l10n_co_document_type == 'rut') or ((record.vat).isnumeric() and record.l10n_co_document_type != 'rut' ):
+                        _logger.info("Correct VAT format")
+                    
+                    elif record.l10n_co_document_type == 'external_id' and (record.vat[0] in letters and record.vat[1] in letters):
                         _logger.info("Correct VAT format")
                     else:
                         raise ValidationError(_('The "'+ record.vat +'" VAT does not comply with the correct format.\n' + 'Correct Nit format: xxxxxxxxx-x  where x represents an integer digit.\n' +'If your document type is other, the correct format are only numbers.'))
